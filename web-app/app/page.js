@@ -204,16 +204,10 @@ export default async function Home() {
       </main>
 
       <footer className="border-t border-white/10">
-        <div className="mx-auto flex w-full max-w-6xl flex-col gap-2 px-6 py-10 sm:flex-row sm:items-center sm:justify-between">
-          <p className="text-sm text-zinc-400">© {new Date().getFullYear()} SkillTube</p>
-          <div className="flex gap-4 text-sm">
-            <Link className="text-zinc-400 hover:text-red-400" href="/login">
-              Login
-            </Link>
-            <Link className="text-zinc-400 hover:text-red-400" href="/dashboard">
-              Dashboard
-            </Link>
-          </div>
+        <div className="mx-auto flex w-full max-w-6xl items-center justify-center px-6 py-10">
+          <p className="text-sm text-zinc-400">
+            © {new Date().getFullYear()} SkillTube • Built by Nagapavan A
+          </p>
         </div>
       </footer>
     </div>
