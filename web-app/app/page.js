@@ -10,10 +10,8 @@ export default async function Home() {
       <header className="sticky top-0 z-20 border-b border-white/10 bg-black/70 backdrop-blur">
         <div className="mx-auto flex w-full max-w-6xl items-center justify-between px-6 py-4">
           <Link href="/" className="flex items-center gap-2">
-            <span className="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-red-600 text-sm font-semibold text-white">
-              ST
-            </span>
-            <span className="text-sm font-semibold tracking-tight">SkillTube</span>
+            <img src="/logo.png" alt="SkillTube" className="h-9 w-12 rounded-lg" />
+            <span className="text-lg font-semibold tracking-tight">SkillTube</span>
           </Link>
 
           <nav className="flex items-center gap-2">
