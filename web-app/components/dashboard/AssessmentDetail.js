@@ -9,6 +9,7 @@ export default function AssessmentDetail({ assessmentId }) {
     const [assessment, setAssessment] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [isVideoOpen, setIsVideoOpen] = useState(false);
 
     useEffect(() => {
         loadAssessment();
@@ -33,6 +34,13 @@ export default function AssessmentDetail({ assessmentId }) {
         } finally {
             setIsLoading(false);
         }
+    };
+
+    const extractVideoId = (url) => {
+        if (!url) return null;
+        const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+        const match = url.match(regExp);
+        return (match && match[2].length === 11) ? match[2] : null;
     };
 
     if (isLoading) {
@@ -80,6 +88,7 @@ export default function AssessmentDetail({ assessmentId }) {
     };
 
     const performance = getPerformanceLevel();
+    const videoId = extractVideoId(assessment.youtubeUrl);
 
     return (
         <div className="min-h-screen bg-black">
@@ -92,6 +101,43 @@ export default function AssessmentDetail({ assessmentId }) {
                         ← Back to Dashboard
                     </Link>
                 </div>
+
+                {videoId && (
+                    <div className="mb-6 sm:mb-8 rounded-xl border border-white/10 bg-white/5 overflow-hidden">
+                        <button
+                            onClick={() => setIsVideoOpen(!isVideoOpen)}
+                            className="flex w-full items-center justify-between p-3 sm:p-4 text-left hover:bg-white/5 transition-colors"
+                        >
+                            <div className="flex items-center gap-2">
+                                <svg className="h-5 w-5 text-red-500" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+                                </svg>
+                                <h2 className="text-sm sm:text-base font-medium text-zinc-100">Video Source</h2>
+                            </div>
+                            <svg
+                                className={`h-5 w-5 text-zinc-400 transition-transform duration-200 ${isVideoOpen ? 'rotate-180' : ''}`}
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                            >
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </button>
+                        {isVideoOpen && (
+                            <div className="border-t border-white/10 p-3 sm:p-4">
+                                <div className="relative aspect-video w-full overflow-hidden rounded-lg">
+                                    <iframe
+                                        src={`https://www.youtube.com/embed/${videoId}`}
+                                        title="YouTube video player"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                        allowFullScreen
+                                        className="absolute inset-0 h-full w-full"
+                                    />
+                                </div>
+                            </div>
+                        )}
+                    </div>
+                )}
 
                 {assessment.isCompleted ? (
                     <>
@@ -191,8 +237,8 @@ export default function AssessmentDetail({ assessmentId }) {
                                         </div>
                                         <div
                                             className={`shrink-0 rounded-full px-2.5 sm:px-3 py-1 text-xs font-medium ${question.isCorrect
-                                                    ? 'bg-green-500/20 text-green-400'
-                                                    : 'bg-red-500/20 text-red-400'
+                                                ? 'bg-green-500/20 text-green-400'
+                                                : 'bg-red-500/20 text-red-400'
                                                 }`}
                                         >
                                             <span className="hidden sm:inline">{question.isCorrect ? '✓ Correct' : '✗ Incorrect'}</span>

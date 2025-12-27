@@ -37,7 +37,7 @@ export default function TakeTestClient() {
                 },
                 body: JSON.stringify({
                     youtubeUrl: youtubeUrl,
-                    numQuestions: 5,
+                    numQuestions: 10,
                 }),
             });
 
@@ -240,10 +240,10 @@ export default function TakeTestClient() {
                                     <div
                                         key={index}
                                         className={`h-2 w-8 rounded-full transition-colors ${index === currentQuestionIndex
-                                                ? 'bg-red-600'
-                                                : selectedAnswers[index]
-                                                    ? 'bg-green-500'
-                                                    : 'bg-white/20'
+                                            ? 'bg-red-600'
+                                            : selectedAnswers[index]
+                                                ? 'bg-green-500'
+                                                : 'bg-white/20'
                                             }`}
                                     />
                                 ))}
@@ -267,15 +267,15 @@ export default function TakeTestClient() {
                                     key={option.id}
                                     onClick={() => handleOptionSelect(option.option)}
                                     className={`w-full rounded-xl border p-4 sm:p-6 text-left transition-all ${selectedAnswers[currentQuestionIndex] === option.option
-                                            ? 'border-red-500 bg-red-500/10 scale-[1.02]'
-                                            : 'border-white/10 bg-white/5 hover:bg-white/10 hover:border-white/20'
+                                        ? 'border-red-500 bg-red-500/10 scale-[1.02]'
+                                        : 'border-white/10 bg-white/5 hover:bg-white/10 hover:border-white/20'
                                         }`}
                                 >
                                     <div className="flex items-start gap-3 sm:gap-4">
                                         <span
                                             className={`inline-flex h-7 w-7 sm:h-8 sm:w-8 shrink-0 items-center justify-center rounded-full text-xs sm:text-sm font-medium transition-colors ${selectedAnswers[currentQuestionIndex] === option.option
-                                                    ? 'bg-red-600 text-white'
-                                                    : 'bg-white/10 text-zinc-300'
+                                                ? 'bg-red-600 text-white'
+                                                : 'bg-white/10 text-zinc-300'
                                                 }`}
                                         >
                                             {option.option}
@@ -305,10 +305,10 @@ export default function TakeTestClient() {
                                     key={index}
                                     onClick={() => handleQuestionNavigate(index)}
                                     className={`h-8 w-8 sm:h-10 sm:w-10 shrink-0 rounded-lg border text-xs sm:text-sm font-medium transition-colors ${index === currentQuestionIndex
-                                            ? 'border-red-500 bg-red-500/20 text-red-400'
-                                            : selectedAnswers[index]
-                                                ? 'border-green-500/30 bg-green-500/10 text-green-400'
-                                                : 'border-white/10 bg-white/5 text-zinc-400 hover:bg-white/10'
+                                        ? 'border-red-500 bg-red-500/20 text-red-400'
+                                        : selectedAnswers[index]
+                                            ? 'border-green-500/30 bg-green-500/10 text-green-400'
+                                            : 'border-white/10 bg-white/5 text-zinc-400 hover:bg-white/10'
                                         }`}
                                 >
                                     {index + 1}

@@ -181,7 +181,7 @@ def generate_mcqs_endpoint():
             }), 400
         
         youtube_url = data.get('youtube_url')
-        num_questions = data.get('num_questions', 5)
+        num_questions = data.get('num_questions', 10)
         model_name = data.get('model', DEFAULT_MODEL)
         
         # Validate inputs
@@ -220,7 +220,7 @@ def generate_mcqs_get():
     """
     try:
         youtube_url = request.args.get('youtube_url')
-        num_questions = int(request.args.get('num_questions', 5))
+        num_questions = int(request.args.get('num_questions', 10))
         model_name = request.args.get('model', DEFAULT_MODEL)
         
         if not youtube_url:

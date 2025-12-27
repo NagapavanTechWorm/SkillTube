@@ -110,7 +110,8 @@ export default function UrlComposer({ selectedAssessmentId, showNewAssessment, o
                 </div>
 
                 <div className="mt-3 text-center text-xs text-zinc-500">
-                    Tip: paste any tutorial/lecture link to create a quick quiz.
+                    <div>Tip: paste any tutorial/lecture link to create a quick quiz.</div>
+                    <div className="mt-1 text-zinc-600">Supports only English videos</div>
                 </div>
             </form>
 
