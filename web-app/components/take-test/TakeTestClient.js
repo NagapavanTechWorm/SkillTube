@@ -47,12 +47,16 @@ export default function TakeTestClient() {
                 setAssessment(data.assessment);
                 setIsGenerating(false);
             } else {
-                setError(data.error || 'Failed to generate MCQs');
+                if (response.status === 500) {
+                    setError('Please paste a valid YouTube link (English lecture/tutorial video only)');
+                } else {
+                    setError(data.error || 'Failed to generate MCQs');
+                }
                 setIsGenerating(false);
             }
         } catch (err) {
             console.error('Error generating MCQs:', err);
-            setError('Failed to generate MCQs. Please try again.');
+            setError('Please paste a valid YouTube link (English lecture/tutorial video only)');
             setIsGenerating(false);
         }
     };
