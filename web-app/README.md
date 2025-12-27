@@ -1,36 +1,109 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# SkillTube
 
-## Getting Started
+SkillTube is an **AI-enabled assessment platform**.
 
-First, run the development server:
+- Paste a **YouTube link**
+- Generate **MCQs** (planned feature)
+- Take assessments to test and improve your skills
+
+This repository contains the Next.js web app under `web-app/`.
+
+## Tech Stack
+
+- Next.js (App Router)
+- Prisma + PostgreSQL
+- NextAuth (Google OAuth) with **database-backed sessions**
+- TailwindCSS (v4)
+- Poppins font via `next/font`
+
+## Prerequisites
+
+- Node.js (recommended: LTS)
+- PostgreSQL running locally
+- Google OAuth credentials
+
+## Environment Variables
+
+Create / update `web-app/.env`:
+
+```env
+DATABASE_URL="postgresql://postgres:12345@localhost:5432/postgres?schema=public"
+
+NEXTAUTH_URL="http://localhost:3000"
+NEXTAUTH_SECRET="<generate-a-random-secret>"
+
+GOOGLE_CLIENT_ID="<google-client-id>"
+GOOGLE_CLIENT_SECRET="<google-client-secret>"
+```
+
+Generate a secure `NEXTAUTH_SECRET`:
+
+```bash
+node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
+```
+
+## Google OAuth Setup
+
+In Google Cloud Console:
+
+- Create OAuth Client ID (Web application)
+- Add an authorized redirect URI:
+
+```
+http://localhost:3000/api/auth/callback/google
+```
+
+## Install
+
+From the `web-app/` folder:
+
+```bash
+npm install
+```
+
+## Database Setup (Prisma)
+
+Run migrations:
+
+```bash
+npx prisma migrate dev
+```
+
+If you run into a Windows `EPERM` error when generating Prisma Client (often due to file locks / antivirus / OneDrive sync):
+
+- Stop running Node/Next processes
+- Then re-run:
+
+```bash
+npx prisma generate
+```
+
+## Run the App
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open:
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+- Landing page: `http://localhost:3000/`
+- Login: `http://localhost:3000/login`
+- Dashboard (protected): `http://localhost:3000/dashboard`
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Routes
 
-## Learn More
+- `app/page.js`: Landing page
+- `app/login/page.js`: Login (Google sign-in)
+- `app/dashboard/page.js`: Dashboard (ChatGPT-like UI; paste YouTube URL)
+- `app/api/auth/[...nextauth]/route.js`: NextAuth handler
 
-To learn more about Next.js, take a look at the following resources:
+## Project Structure
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- `app/`: Next.js routes
+- `components/`: Reusable UI components
+- `lib/`: Auth + Prisma helpers
+- `prisma/`: Prisma schema and migrations
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Author
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Built by **Nagapavan A**
